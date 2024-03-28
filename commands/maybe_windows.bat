@@ -1,7 +1,8 @@
 @echo off
 
-REM Get the Python version from the command line argument
+REM Get the Python version and virtual environment directory from the command line arguments
 set PYTHON_VERSION=%1
+set ENV_DIR=%2
 
 REM Function to download the Python installer
 :download_python
@@ -26,11 +27,26 @@ if %errorlevel% equ 0 (
 )
 goto :eof
 
+REM Function to create a new virtual environment and activate it
+:create_and_activate_virtual_environment
+if not exist "%ENV_DIR%" (
+    echo Creating a new virtual environment in %ENV_DIR%...
+    python -m venv "%ENV_DIR%"
+    echo Virtual environment created: %ENV_DIR%
+) else (
+    echo Virtual environment already exists: %ENV_DIR%
+)
+
+echo Activating the virtual environment...
+call "%ENV_DIR%\Scripts\activate.bat"
+echo Virtual environment activated.
+goto :eof
+
 REM Check if Python is already installed
 call :is_python_installed
 if %errorlevel% equ 0 (
     echo Python %PYTHON_VERSION% is already installed.
-    goto :cleanup
+    goto :create_env
 )
 
 REM Download the Python installer
@@ -47,6 +63,10 @@ if %errorlevel% equ 0 (
     echo Python %PYTHON_VERSION% installation failed.
     goto :cleanup
 )
+
+:create_env
+REM Create a new virtual environment and activate it
+call :create_and_activate_virtual_environment
 
 :cleanup
 REM Clean up the downloaded installer

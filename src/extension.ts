@@ -31,8 +31,25 @@ export function activate(context: vscode.ExtensionContext) {
                 terminal.sendText(`cd ${extensionPath}`);
                 terminal.sendText(`sh ${scriptPath} 3.11 ${extensionPath}/.env`);
             }
+        } else if (platform === 'win32') {
+            // Windows
+            const scriptPath = path.join(extensionPath, 'commands', 'maybe_windows.bat');
+
+            // Display an informational message to non-technical users in a centered modal
+            const infoMessage =
+                'This extension will download and install Python on your Windows machine. ' +
+                'You may need to provide administrative privileges.';
+
+            const selection = await vscode.window.showInformationMessage(infoMessage, { modal: true }, 'OK', 'Cancel');
+
+            if (selection === 'OK') {
+                const terminal = vscode.window.createTerminal('Python Installation');
+                terminal.show();
+                terminal.sendText(`cd ${extensionPath}`);
+                terminal.sendText(`${scriptPath} 3.11 ${extensionPath}\\.env`);
+            }
         } else {
-            vscode.window.showInformationMessage('This command is currently supported only on macOS. Soon windows.');
+            vscode.window.showInformationMessage('This command is currently supported only on macOS and Windows.');
         }
     });
 
