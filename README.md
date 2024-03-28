@@ -1,6 +1,4 @@
-Here's a quick README explaining the script:
 
-```
 # Python Version Installer
 
 This script automates the installation of a specific Python version using Homebrew on macOS. It checks if Homebrew is installed and installs it if necessary. Then, it installs the specified Python version using Homebrew.
@@ -46,4 +44,3 @@ If you encounter any issues during the installation process, please ensure that:
 - You have entered your password correctly when prompted.
 
 If the issue persists, please refer to the Homebrew documentation or seek further assistance.
-```
