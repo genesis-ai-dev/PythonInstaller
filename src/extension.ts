@@ -29,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
                 const terminal = vscode.window.createTerminal('Python Installation');
                 terminal.show();
                 terminal.sendText(`cd ${extensionPath}`);
-                terminal.sendText(`sh ${scriptPath} 3.11`);
+                terminal.sendText(`sh ${scriptPath} 3.11 ${extensionPath}/.env`);
             }
         } else {
             vscode.window.showInformationMessage('This command is currently supported only on macOS. Soon windows.');
