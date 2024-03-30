@@ -9,9 +9,9 @@
   "license": "MIT",
   "displayName": "Python Installer",
   "description": "Automatically installs Python",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "engines": {
-    "vscode": "^1.87.0",
+    "vscode": "^1.85.0",
     "node": ">=16.17.1"
   },
   "categories": [
@@ -24,6 +24,17 @@
       {
         "command": "pythoninstaller.installPython",
         "title": "Install Python"
+      },
+      {
+        "command": "pythoninstaller.addCallback",
+        "title": "Add Callback",
+        "arguments": [
+          {
+            "name": "callback",
+            "type": "string",
+            "description": "The callback function to be executed after Python installation"
+          }
+        ]
       }
     ]
   },
@@ -39,7 +50,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.87.0",
+    "@types/vscode": "^1.85.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
     "@typescript-eslint/eslint-plugin": "^7.0.2",

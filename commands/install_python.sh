@@ -3,7 +3,6 @@
 # Get the Python version from the command line argument
 PYTHON_VERSION=$1
 ENV_DIR=$2
-
 # Function to install Homebrew
 install_homebrew() {
     echo "Installing Homebrew..."
