@@ -13,21 +13,23 @@ export function activate(context: vscode.ExtensionContext) {
         // Determine the platform
         const platform = os.platform();
 
+        let terminal: vscode.Terminal | undefined;
+
         if (platform === 'darwin') {
             // macOS
             const scriptPath = path.join(extensionPath, 'commands', 'install_python.sh');
             fs.chmodSync(scriptPath, '755');
 
-            const terminal = vscode.window.createTerminal('Python Installation');
+            terminal = vscode.window.createTerminal('Python Installation');
             terminal.show();
             terminal.sendText(`cd ${extensionPath}`);
             terminal.sendText(`sh ${scriptPath} 3.11 ${extensionPath}/.env`);
-        
+
         } else if (platform === 'win32') {
             // Windows
             const scriptPath = path.join(extensionPath, 'commands', 'maybe_windows.bat');
 
-            const terminal = vscode.window.createTerminal('Python Installation');
+            terminal = vscode.window.createTerminal('Python Installation');
             terminal.sendText(`cd ${extensionPath}`);
             terminal.sendText(`${scriptPath} ${extensionPath}\\.env`);
     
@@ -47,6 +49,14 @@ export function activate(context: vscode.ExtensionContext) {
         callbacks.forEach(element => {
             vscode.commands.executeCommand(element);
         });
+
+        // Toggle the bottom panel after a delay to ensure the commands are executed
+        if (terminal) {
+            setTimeout(() => {
+                vscode.commands.executeCommand('workbench.action.togglePanel');
+            }, 6000); // Hide the terminal after 6 seconds
+            // Note that I don't call terminal.dispose() because that could interrupt the script. We could probably just check if it's finished running, but I didn't have success with that.
+        }
     });
 
     let addCallbackCommand = vscode.commands.registerCommand('pythoninstaller.addCallback', (callback: string) => {
