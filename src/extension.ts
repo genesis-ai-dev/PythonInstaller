@@ -13,6 +13,19 @@ export function activate(context: vscode.ExtensionContext) {
         // Determine the platform
         const platform = os.platform();
 
+        // Get a list of all terminals
+        let terminals = vscode.window.terminals;
+
+        // Iterate over the terminals
+        for (let existingTerminal of terminals) {
+            // Check if the terminal name is 'Python Installation'
+            if (existingTerminal.name === 'Python Installation') {
+                // Dispose the terminal
+                existingTerminal.dispose();
+            }
+        }
+
+        // Now, you can create a new terminal with the name 'Python Installation'
         let terminal: vscode.Terminal | undefined;
 
         if (platform === 'darwin') {
@@ -32,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
             terminal = vscode.window.createTerminal('Python Installation');
             terminal.sendText(`cd ${extensionPath}`);
             terminal.sendText(`${scriptPath} ${extensionPath}\\.env`);
-    
+
         } else if (platform === 'linux') {
             // Linux (Ubuntu)
             const scriptPath = path.join(extensionPath, 'commands', 'install_python_linux.sh');
@@ -71,4 +84,4 @@ function addCallback(callback: string) {
     callbacks.push(callback);
 }
 
-export function deactivate() {}
+export function deactivate() { }
