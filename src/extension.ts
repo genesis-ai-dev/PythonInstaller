@@ -67,7 +67,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (terminal) {
             setTimeout(() => {
                 vscode.commands.executeCommand('workbench.action.togglePanel');
-            }, 6000); // Hide the terminal after 6 seconds
+            }, 10 * 1000); // Hide the terminal after 10 seconds
             // Note that I don't call terminal.dispose() because that could interrupt the script. We could probably just check if it's finished running, but I didn't have success with that.
         }
     });
