@@ -45,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
             terminal = vscode.window.createTerminal('Python Installation');
             terminal.show();
             terminal.sendText(`cd "${extensionPath}"`);
-            terminal.sendText(`"${scriptPath}" "${extensionPath}\\.env"`);
+            terminal.sendText(`${scriptPath} "${extensionPath}\\.env"`);
 
         } else if (platform === 'linux') {
             // Linux (Ubuntu)
