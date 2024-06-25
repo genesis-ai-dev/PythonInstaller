@@ -41,11 +41,15 @@ export function activate(context: vscode.ExtensionContext) {
         } else if (platform === 'win32') {
             // Windows
             const scriptPath = path.join(extensionPath, 'commands', 'maybe_windows.bat');
-
-            terminal = vscode.window.createTerminal('Python Installation');
+            const envPath = path.join(extensionPath, '.env');
+        
+            terminal = vscode.window.createTerminal({
+                name: 'Python Installation',
+                shellPath: 'cmd.exe',
+                shellArgs: ['/c']
+            });
             terminal.show();
-            terminal.sendText(`cd "${extensionPath}"`);
-            terminal.sendText(`${scriptPath} "${extensionPath}\\.env"`);
+            terminal.sendText(`"${scriptPath}" "${envPath}"`);
 
         } else if (platform === 'linux') {
             // Linux (Ubuntu)
