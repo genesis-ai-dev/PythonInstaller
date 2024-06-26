@@ -46,7 +46,6 @@ export function activate(context: vscode.ExtensionContext) {
             terminal = vscode.window.createTerminal({
                 name: 'Python Installation',
                 shellPath: 'cmd.exe',
-                shellArgs: ['/c']
             });
             terminal.show();
             terminal.sendText(`"${scriptPath}" "${envPath}"`);
