@@ -55,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
             const scriptPath = path.join(extensionPath, 'commands', 'install_python_linux.sh');
             fs.chmodSync(scriptPath, '755');
 
-            const terminal = vscode.window.createTerminal('Python Installation');
+            terminal = vscode.window.createTerminal('Python Installation');
             terminal.show();
             terminal.sendText(`cd ${extensionPath}`);
             terminal.sendText(`sh ${scriptPath} 3.11 ${extensionPath}/.env`);
@@ -72,7 +72,6 @@ export function activate(context: vscode.ExtensionContext) {
             setTimeout(() => {
                 vscode.commands.executeCommand('workbench.action.togglePanel');
             }, 10 * 1000); // Hide the terminal after 10 seconds
-            // Note that I don't call terminal.dispose() because that could interrupt the script. We could probably just check if it's finished running, but I didn't have success with that.
         }
     });
 
