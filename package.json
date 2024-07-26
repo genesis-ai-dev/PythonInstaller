@@ -9,7 +9,7 @@
   "license": "MIT",
   "displayName": "Python Installer",
   "description": "Automatically installs Python",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "engines": {
     "vscode": "^1.84.0",
     "node": ">=16.17.1"

@@ -51,14 +51,17 @@ export function activate(context: vscode.ExtensionContext) {
             terminal.sendText(`"${scriptPath}" "${envPath}"`);
 
         } else if (platform === 'linux') {
-            // Linux (Ubuntu)
+            // Linux
             const scriptPath = path.join(extensionPath, 'commands', 'install_python_linux.sh');
             fs.chmodSync(scriptPath, '755');
 
-            terminal = vscode.window.createTerminal('Python Installation');
+            terminal = vscode.window.createTerminal({
+                name: 'Python Installation',
+                shellPath: '/bin/bash'
+            });
             terminal.show();
-            terminal.sendText(`cd ${extensionPath}`);
-            terminal.sendText(`sh ${scriptPath} 3.11 ${extensionPath}/.env`);
+            terminal.sendText(`cd "${extensionPath}"`);
+            terminal.sendText(`bash "${scriptPath}" "${extensionPath}/.env"`);
 
         } else {
             vscode.window.showInformationMessage('This command is currently supported only on macOS, Windows, and Linux (Ubuntu).');
