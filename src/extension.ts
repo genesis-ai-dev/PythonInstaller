@@ -61,7 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
             });
             terminal.show();
             terminal.sendText(`cd "${extensionPath}"`);
-            terminal.sendText(`bash "${scriptPath}" "${extensionPath}/.env"`);
+            terminal.sendText(`bash "${scriptPath}" 3.11 "${extensionPath}`);
 
         } else {
             vscode.window.showInformationMessage('This command is currently supported only on macOS, Windows, and Linux (Ubuntu).');
